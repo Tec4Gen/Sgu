@@ -8,6 +8,8 @@ namespace Example
         //поиска
         private class Node
         {
+            static int MinAdd;
+            //static bool AddOk = true;
             public object inf;	//информационное поле
             public int counter;
             public Node left;	//ссылка на левое поддерево
@@ -47,9 +49,44 @@ namespace Example
             {
                 if (r != null)
                 {
-                    Console.Write("({0}, {1}) ", r.inf, r.counter);
-                    Preorder(r.left);
-                    Preorder(r.rigth);
+                    if (r.counter == 1)
+                    {
+                        MinAdd = (int)r.inf;
+                        Console.WriteLine($"Минимальный добавляемый элемент  < {MinAdd}");
+                        return;
+                    }
+                    if (r.left != null && r.rigth != null)
+                    {
+                        if (r.left.counter == r.rigth.counter)
+                        {
+                            Preorder(r.left);
+                            //Preorder(r.rigth);
+                        }
+                        else
+                        {
+                            if (Math.Abs(r.left.counter - r.rigth.counter) <= 2) 
+                            {
+                                if (r.left.counter > r.rigth.counter)
+                                {
+                                    Preorder(r.rigth);
+
+                                }
+                                else
+                                {
+                                    Preorder(r.left);
+                                }
+                            }
+                           
+                        }
+                    }
+                    else if (r.left != null && r.rigth == null)
+                    {
+                        Preorder(r.left);
+                    }
+                    else
+                    {
+                        Preorder(r.rigth);
+                    }
                 }
             }
 
@@ -71,9 +108,7 @@ namespace Example
                     Postorder(r.rigth);
                     Console.Write("({0}, {1}) ", r.inf, r.counter);
                 }
-            }
-
-           
+            }     
             public static void Part(ref Node t, int k)
             {
                 int x = (t.left == null) ? 0 : t.left.counter;
@@ -89,7 +124,6 @@ namespace Example
                     //Console.WriteLine("Ротация влево");
                     RotationLeft(ref t);
                 }
-                //if (x == k) Console.WriteLine("Выбран элемент ({0}, {1})", t.inf, t.counter); 
             }
 
            
@@ -102,6 +136,7 @@ namespace Example
                 //Console.WriteLine();
                 Balancer(ref t.left);
                 Balancer(ref t.rigth);
+                
             }
 
             //неявная балансировка дерева бинарного поиска
@@ -202,6 +237,8 @@ namespace Example
                 Count(ref x);
 
                 t = x;
+               
+
             }
 
             public static void RotationLeft(ref Node t)
