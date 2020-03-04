@@ -8,6 +8,7 @@ namespace Example
         //поиска
         private class Node
         {
+            static int Root;
             static int MinAdd;
             //static bool AddOk = true;
             public object inf;	//информационное поле
@@ -44,7 +45,18 @@ namespace Example
                     }
                 }
             }
-
+            public static int PutRoot(Node r)
+            {
+                if (r == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                   Root = (int)r.inf;
+                   return 0;
+                }
+            }
             public static void Preorder(Node r)	//прямой обход дерева
             {
                 if (r != null)
@@ -52,13 +64,22 @@ namespace Example
                     if (r.counter == 1)
                     {
                         MinAdd = (int)r.inf;
-                        Console.WriteLine($"Минимальный добавляемый элемент  < {MinAdd}");
+                        if (MinAdd < Root)
+                        {
+                            Console.WriteLine($"Минимальный добавляемый элемент  {MinAdd} > X < {Root}");
+                        }
+                        else 
+                        {
+                            Console.WriteLine($"Минимальный добавляемый элемент {Root} < X < {MinAdd}");
+                        }
+                        
                         return;
                     }
                     if (r.left != null && r.rigth != null)
                     {
                         if (r.left.counter == r.rigth.counter)
                         {
+                            PutRoot(r);
                             Preorder(r.left);
                             //Preorder(r.rigth);
                         }
@@ -68,11 +89,13 @@ namespace Example
                             {
                                 if (r.left.counter > r.rigth.counter)
                                 {
+                                    PutRoot(r);
                                     Preorder(r.rigth);
 
                                 }
                                 else
                                 {
+                                    PutRoot(r);
                                     Preorder(r.left);
                                 }
                             }
@@ -81,10 +104,12 @@ namespace Example
                     }
                     else if (r.left != null && r.rigth == null)
                     {
+                        PutRoot(r);
                         Preorder(r.left);
                     }
                     else
                     {
+                        PutRoot(r);
                         Preorder(r.rigth);
                     }
                 }
@@ -360,7 +385,10 @@ namespace Example
             Random rnd = new Random();
             Node.InsertRandom(ref tree, nodeInf, rnd);
         }
-
+        public void PutRoot()
+        {
+            Node.PutRoot(tree);
+        }
 
     }
 }
