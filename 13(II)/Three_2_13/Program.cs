@@ -19,7 +19,9 @@ namespace Example
                     tree.Add(int.Parse(item));
                 }
             }
+           
             tree.PutRoot();
+            tree.PutMainRoot();
             tree.Preorder();
       }
     }
