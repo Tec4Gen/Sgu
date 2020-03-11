@@ -20,7 +20,7 @@ namespace Example
                 }
             }
             tree.Preorder();
-            tree.ShowLelvels();
+            tree.Inorder();
       }
     }
 }
