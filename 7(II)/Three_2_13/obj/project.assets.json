@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Neo\\source\\repos\\Three_2_13\\Three_2_13\\Three_2_13.csproj",
+      "projectUniqueName": "C:\\Users\\Neo\\Desktop\\Сиакод\\7(II)\\Three_2_13\\Three_2_13.csproj",
       "projectName": "Three_2_13",
-      "projectPath": "C:\\Users\\Neo\\source\\repos\\Three_2_13\\Three_2_13\\Three_2_13.csproj",
+      "projectPath": "C:\\Users\\Neo\\Desktop\\Сиакод\\7(II)\\Three_2_13\\Three_2_13.csproj",
       "packagesPath": "C:\\Users\\Neo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Neo\\source\\repos\\Three_2_13\\Three_2_13\\obj\\",
+      "outputPath": "C:\\Users\\Neo\\Desktop\\Сиакод\\7(II)\\Three_2_13\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
