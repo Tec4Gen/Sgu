@@ -1,20 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Example
 {
     public class BinaryTree //класс, реализующий АТД «дерево бинарного поиска со счетчиком вершин в дереве»
     {
-        //вложенный класс, отвечающий за узлы и операции допустимы для дерева бинарного
-        //поиска
+
+        //Складываем в нее путь до элемента <-------------------
+        static public List<int> CollectionSearch = new List<int>();
+
         private class Node
         {
+            //Складываем все узлы в которые можно вставить элемент <-------------------
+            static public List<Node> item = new List<Node>();
+
             static int MainRoot;
             static int SubRoot;
-            static int MinAdd;
-            static bool CheckFlag = false;
+
             public object inf;  //информационное поле
             public int counter;
 
+           
             public Node left;   //ссылка на левое поддерево
             public Node rigth;  //ссылка на правое поддерево
 
@@ -67,104 +73,65 @@ namespace Example
                 }
                 else
                 {
-                    MainRoot = (int)r.inf;
-                    return 0;
+                    
+                    return MainRoot = (int)r.inf;
                 }
             }
-            public static void Preorder(Node r) //прямой обход дерева
+            public static void Preorder(Node r) //прямой обход дерева <-------------------
             {
                 if (r != null)
-                {
-                    if (r.counter <= 2)
+                {  
+                    if (r.left != null && r.rigth != null)
                     {
-                        if (r.counter == 2 && CheckFlag == true)
+                        if (Math.Abs(r.left.counter - r.rigth.counter) <= 2)
                         {
-                            MinAdd = (int)r.inf;
-                            if (r.left == null)
+                            //Если разница в 2 элемента
+                            if (Math.Abs(r.left.counter - r.rigth.counter) == 2)
                             {
-                                Console.WriteLine($"Минимальный добавляемый меньше {SubRoot} и меньше {MinAdd}");
-                                return;
-                            }
-                            else if (r.rigth == null)
-                            {
-                                if ((int)r.inf >= MainRoot)
+                                //ищем наименьшую сторону и передаем сыслку на нее
+                                //В функцию NodeBranch, там уже идем в глубь по самым наименьшим, пока не найдем место куда вставить
+                                //И так проходим по всему дереву, функция NodeBranch собираем все места, куда можно вставить.
+                                //На выходе проверяем если мест больше чем одно, выдаем что поправить нельзя, если одно, то показываем слева или справа
+                                //Изменены внутренний и внешний preorder и добавлена функция NodeBranch
+                                if (r.left.counter <= r.rigth.counter)
                                 {
-                                    Console.WriteLine($"Минимальный добавляемый больше {SubRoot} и больше {MinAdd}");
+                                    NodeBranch(r.left);
                                 }
                                 else 
                                 {
-                                    Console.WriteLine($"Минимальный добавляемый больше {SubRoot} и больше {MinAdd}, но не превышает корень дерева {MainRoot}");
-                                }
-                               
-                                return;
+                                    
+                                    NodeBranch(r.rigth);
+                                } 
                             }
-                        }
-                        else if (r.counter == 1 && CheckFlag == true)
-                        {
-                            MinAdd = (int)r.inf;
-                            if (SubRoot > MinAdd)
-                            {
-                                Console.WriteLine($"Минимальный добавляемый меньше {MinAdd} и меньше {SubRoot}, но не меньше {MainRoot}");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Минимальный добавляемый больше {SubRoot} и меньше {MinAdd}");
-                            }
-                            
-                           
-                            return;
                         }
                         else 
                         {
-                            Console.WriteLine("Разница в поддеревьях не привышает 2, оно сбалансированно");
-                            return;
+                            Console.WriteLine("Одиним элементом не поправить");
                         }
-                        
-                    }
-                    if (r.left != null && r.rigth != null)
-                    {
-                        if (r.left.counter == r.rigth.counter)
-                        {
-                            PutRoot(r);
-                            Preorder(r.left);
-                        }
-                        else
-                        {
-                            if (Math.Abs(r.left.counter - r.rigth.counter) <= 2)
-                            {
-                                if (Math.Abs(r.left.counter - r.rigth.counter) == 2)
-                                {
-                                    CheckFlag = true;
-                                }
-                                if (r.left.counter > r.rigth.counter)
-                                {
-                                    PutRoot(r);
-                                    Preorder(r.rigth);
-
-                                }
-                                else
-                                {
-                                    PutRoot(r);
-                                    Preorder(r.left);
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Разница в поддеревьях привышает 2, одним элементом не сбалансировать");
-                            }
-                        }
-                    }
-                    else if (r.left != null && r.rigth == null)
-                    {
-                        PutRoot(r);
-                        Preorder(r.left);
-                    }
-                    else
-                    {
-                        PutRoot(r);
-                        Preorder(r.rigth);
-                    }
+                    }       
+                    Preorder(r.left);
+                    Preorder(r.rigth);
                 }
+
+            }
+
+            //Функция для поиска места куда надо вставить <-------------------
+            public static void NodeBranch (Node r)
+            {
+                if (r.left == null || r.rigth == null) 
+                {
+                    item.Add(r);
+                    return;
+                }  
+                if (r.left.counter <= r.rigth.counter)
+                {      
+                    NodeBranch(r.left);
+                }
+                else
+                {
+                    
+                    NodeBranch(r.rigth);
+                }    
             }
 
             public static void Inorder(Node r)  //симметричный обход дерева
@@ -253,6 +220,8 @@ namespace Example
                 }
                 else
                 {
+                    CollectionSearch.Add((int)r.inf);
+
                     if (((IComparable)(r.inf)).CompareTo(key) == 0)
                     {
                         item = r;
@@ -356,7 +325,35 @@ namespace Example
 
         }        //конец вложенного класса
 
-        Node tree;      //ссылка на корень дерева
+        Node tree;
+
+        //ссылка на корень дерева <-------------------
+        public void Preorder()
+        {
+            Node.Preorder(tree);
+            if (Node.item.Count == 1)
+            {
+                Node.Search(tree, (int)Node.item[0].inf, out Node item);
+                int min = (int)Node.item[0].inf;
+                Console.WriteLine($"Узел: {min}");
+                if (Node.item[0].left == null)
+                {
+                    Console.WriteLine($"Вставить нужно слева от него");
+                }
+                else
+                {
+                    Console.WriteLine($"Вставить нужно справа от него");
+                }
+                Console.WriteLine("Путь до элемента");
+                foreach (var item1 in CollectionSearch)
+                {
+                    Console.Write($" {item1} ---->");
+                }
+                Console.WriteLine("Сюда вот");
+            }
+
+        }
+
 
         //свойство позволяет получить доступ к значению информационного поля корня дерева
         public object Inf
@@ -370,8 +367,6 @@ namespace Example
             get { return tree.counter; }
 
         }
-
-
         public BinaryTree() //открытый конструктор
         {
             tree = null;
@@ -388,10 +383,7 @@ namespace Example
         }
 
         //организация различных способов обхода дерева
-        public void Preorder()
-        {
-            Node.Preorder(tree);
-        }
+       
 
         public void Inorder()
         {
@@ -437,13 +429,14 @@ namespace Example
             Random rnd = new Random();
             Node.InsertRandom(ref tree, nodeInf, rnd);
         }
-        public void PutRoot()
+        public int PutRoot()
         {
-            Node.PutRoot(tree);
+            return Node.PutRoot(tree);
         }
-        public void PutMainRoot()
+    
+        public int PutMainRoot()
         {
-            Node.PutMainRoot(tree);
+           return Node.PutMainRoot(tree);
         }
 
     }
