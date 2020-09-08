@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiManager.BLL", "TaxiManager.BLL\TaxiManager.BLL.csproj", "{65237663-D12F-4A1F-84C7-35B4592B85FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{852669FE-0149-4948-9852-4DFA781B4755}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{785F5A6A-220F-424B-9727-923DBA306D14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pl", "Pl", "{1076783B-F38F-4679-A046-6C773EFB5AB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{68B340D8-CDCD-499B-A33C-1F04EFF7E5E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiManager.Entities", "TaxiManager.Entities\TaxiManager.Entities.csproj", "{2A438C12-4F4D-4641-A0D5-A48D4FEF649C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiManager.DAL", "TaxiManager.DAL\TaxiManager.DAL.csproj", "{52F2D79A-76C4-4486-A65E-3F8DD92CBE2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiManager.PL", "TaxiManager.PL\TaxiManager.PL.csproj", "{CFE63678-9E0B-48DF-9268-B1D64C30E472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi.Manager.FormsAppPL", "Taxi.Manager.FormsAppPL\Taxi.Manager.FormsAppPL.csproj", "{2BC2E59F-51E4-4EE6-A089-7A2E1BDC216C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65237663-D12F-4A1F-84C7-35B4592B85FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65237663-D12F-4A1F-84C7-35B4592B85FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65237663-D12F-4A1F-84C7-35B4592B85FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65237663-D12F-4A1F-84C7-35B4592B85FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A438C12-4F4D-4641-A0D5-A48D4FEF649C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A438C12-4F4D-4641-A0D5-A48D4FEF649C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A438C12-4F4D-4641-A0D5-A48D4FEF649C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A438C12-4F4D-4641-A0D5-A48D4FEF649C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F2D79A-76C4-4486-A65E-3F8DD92CBE2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F2D79A-76C4-4486-A65E-3F8DD92CBE2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F2D79A-76C4-4486-A65E-3F8DD92CBE2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F2D79A-76C4-4486-A65E-3F8DD92CBE2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFE63678-9E0B-48DF-9268-B1D64C30E472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFE63678-9E0B-48DF-9268-B1D64C30E472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFE63678-9E0B-48DF-9268-B1D64C30E472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFE63678-9E0B-48DF-9268-B1D64C30E472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC2E59F-51E4-4EE6-A089-7A2E1BDC216C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC2E59F-51E4-4EE6-A089-7A2E1BDC216C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC2E59F-51E4-4EE6-A089-7A2E1BDC216C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC2E59F-51E4-4EE6-A089-7A2E1BDC216C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{65237663-D12F-4A1F-84C7-35B4592B85FB} = {852669FE-0149-4948-9852-4DFA781B4755}
+		{2A438C12-4F4D-4641-A0D5-A48D4FEF649C} = {68B340D8-CDCD-499B-A33C-1F04EFF7E5E8}
+		{52F2D79A-76C4-4486-A65E-3F8DD92CBE2C} = {785F5A6A-220F-424B-9727-923DBA306D14}
+		{CFE63678-9E0B-48DF-9268-B1D64C30E472} = {1076783B-F38F-4679-A046-6C773EFB5AB0}
+		{2BC2E59F-51E4-4EE6-A089-7A2E1BDC216C} = {1076783B-F38F-4679-A046-6C773EFB5AB0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95B3637E-4D9B-4D23-BFDB-E3DFC71AAABE}
+	EndGlobalSection
+EndGlobal
