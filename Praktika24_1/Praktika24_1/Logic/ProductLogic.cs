@@ -26,6 +26,7 @@ namespace Praktika24_1.Logic
                     string line = files.ReadLine();
                     string[] info = line.Split(' ');
 
+                    // тут просто собираем из каждой линии в файле объект и добавляем его в наш общий словарик 
                     int.TryParse(info[2], out int price);
                     int.TryParse(info[0], out int id);
                     SpisokProduct.Add(count++, new Product
@@ -50,17 +51,18 @@ namespace Praktika24_1.Logic
             if (product == null)
                 return;
 
-            GetAll();
+            GetAll();//получаем все - для актцальности данных что бы ничего не потерять
             if (SpisokProduct == null || SpisokProduct.Count() == 0)
                 return;
 
             using (StreamWriter files = new StreamWriter("Proruct.txt", true))
             {
-                var lastIndex = SpisokProduct.Select(x => x.Key).Max();
-                
-                product.Id = ++lastIndex;
-                SpisokProduct.Add(++lastIndex, product);
-
+                //Берем максимальный индекс в нашем списке акций
+                int lastIndex = SpisokProduct.Select(x => x.Key).Max();
+                //Прибавляем +1 от того максимального индекса чтоо получили
+                product.Id = ++lastIndex;//Добавляем id товару
+                SpisokProduct.Add(++lastIndex, product);//Записываем в наш словарик
+                //теперь в конец файла кладем нашу запись
                 files.WriteLine($"{product.Id} {product.Title} {product.Price}");
             }
         }
@@ -68,18 +70,21 @@ namespace Praktika24_1.Logic
         public void DeleteById(int id)
         {
 
-            GetAll();
-            if (SpisokProduct == null || SpisokProduct.Count() == 0)
+            GetAll();//получаем все - для актцальности данных что бы ничего не потерять
+            if (SpisokProduct == null || SpisokProduct.Count() == 0) // Проверяем пустой ли список или равный нулл
                 return;
 
             using (StreamWriter files = new StreamWriter("Proruct.txt", false))
             {
+                //флаг проверяет если удалился вернет true если нет false
                 bool flag = SpisokProduct.Remove(id);
+                //Если не удалилось отменяем операцию
                 if (!flag)
                     return;
-
+                //Производим польную перезапись файла без уже удаленного элемента, за это отвечает флаг false в StreamWriter
                 foreach (var product in SpisokProduct.Values)
                 {
+
                     files.WriteLine($"{product.Id} {product.Title} {product.Price}");
                 }
             }
