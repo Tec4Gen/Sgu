@@ -14,13 +14,13 @@ namespace Praktika24_1.Logic
         public List<Stock> GetAll()
         {
             int count = 0;
-            using (StreamReader files = new StreamReader("Stock.txt"))
+            using (StreamReader files = new StreamReader("../../Files/Stock.txt"))
             {
                 List<Stock> Stock = new List<Stock>();
-
+                SpisokStock.Clear();
                 while (!files.EndOfStream)
                 {
-                    SpisokStock.Clear();
+                   
                     //Список который будем возвращать
 
                     string line = files.ReadLine();
@@ -50,17 +50,24 @@ namespace Praktika24_1.Logic
                 return;
 
             GetAll();//получаем все - для актцальности данных что бы ничего не потерять
-            if (SpisokStock == null || SpisokStock.Count() == 0)
+            if (SpisokStock == null)
                 return;
-
-            using (StreamWriter files = new StreamWriter("Proruct.txt", true))
+            int lastIndex = 0;
+            using (StreamWriter files = new StreamWriter("../../Files/Stock.txt", true))
             {
                 //Берем максимальный индекс в нашем списке акций
-                int lastIndex = SpisokStock.Select(x => x.Key).Max();
-
-                //Прибавляем +1 от того максимального индекса чтоо получили
-                Stock.Id = ++lastIndex;//Добавляем id товару
-                SpisokStock.Add(++lastIndex, Stock);//Записываем в наш словарик
+                
+                if (SpisokStock.Count != 0)
+                {
+                    lastIndex = SpisokStock.Select(x => x.Key).Max();
+                    //Прибавляем +1 от того максимального индекса чтоо получили
+                    Stock.Id = ++lastIndex;//Добавляем id товару
+                    SpisokStock.Add(++lastIndex, Stock);//Записываем в наш словарик
+                }
+                else 
+                {
+                    SpisokStock.Add(lastIndex++, Stock);
+                }
 
                 //теперь в конец файла кладем нашу запись
                 files.WriteLine($"{Stock.Id} {Stock.Title} {Stock.Description}");
@@ -71,10 +78,10 @@ namespace Praktika24_1.Logic
         {
 
             GetAll();//получаем все - для актцальности данных что бы ничего не потерять
-            if (SpisokStock == null || SpisokStock.Count() == 0)// Проверяем пустой ли список или равный нулл
+            if (SpisokStock == null)// Проверяем пустой ли список или равный нулл
                 return;
 
-            using (StreamWriter files = new StreamWriter("Proruct.txt", false))
+            using (StreamWriter files = new StreamWriter("../../Files/Stock.txt", false))
             {
                 //флаг проверяет если удалился вернет true если нет false
                 bool flag = SpisokStock.Remove(id);

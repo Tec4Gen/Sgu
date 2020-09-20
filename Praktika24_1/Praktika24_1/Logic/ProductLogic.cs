@@ -14,13 +14,13 @@ namespace Praktika24_1.Logic
         public List<Product> GetAll()
         {
             int count = 0;
-            using (StreamReader files = new StreamReader("Proruct.txt"))
+            using (StreamReader files = new StreamReader("../../Files/Product.txt"))
             {
                 List<Product> Product = new List<Product>();
-
+                SpisokProduct.Clear();
                 while (!files.EndOfStream)
                 {
-                    SpisokProduct.Clear();
+                    
                     //Список который будем возвращать
 
                     string line = files.ReadLine();
@@ -52,17 +52,26 @@ namespace Praktika24_1.Logic
                 return;
 
             GetAll();//получаем все - для актцальности данных что бы ничего не потерять
-            if (SpisokProduct == null || SpisokProduct.Count() == 0)
+            if (SpisokProduct == null)
                 return;
 
-            using (StreamWriter files = new StreamWriter("Proruct.txt", true))
+            using (StreamWriter files = new StreamWriter("../../Files/Product.txt", true))
             {
+                int lastIndex = 0;
                 //Берем максимальный индекс в нашем списке акций
-                int lastIndex = SpisokProduct.Select(x => x.Key).Max();
-                //Прибавляем +1 от того максимального индекса чтоо получили
-                product.Id = ++lastIndex;//Добавляем id товару
-                SpisokProduct.Add(++lastIndex, product);//Записываем в наш словарик
-                //теперь в конец файла кладем нашу запись
+                if (SpisokProduct.Count() != 0)
+                {
+                    lastIndex = SpisokProduct.Select(x => x.Key).Max();
+                    //Прибавляем +1 от того максимального индекса чтоо получили
+                    product.Id = ++lastIndex;//Добавляем id товару
+                    SpisokProduct.Add(++lastIndex, product);//Записываем в наш словарик
+                                                            //теперь в конец файла кладем нашу запись
+                }
+                else 
+                {
+                    SpisokProduct.Add(lastIndex++, product);//Записываем в наш словарик
+                }
+
                 files.WriteLine($"{product.Id} {product.Title} {product.Price}");
             }
         }
@@ -71,10 +80,10 @@ namespace Praktika24_1.Logic
         {
 
             GetAll();//получаем все - для актцальности данных что бы ничего не потерять
-            if (SpisokProduct == null || SpisokProduct.Count() == 0) // Проверяем пустой ли список или равный нулл
+            if (SpisokProduct == null) // Проверяем пустой ли список или равный нулл
                 return;
 
-            using (StreamWriter files = new StreamWriter("Proruct.txt", false))
+            using (StreamWriter files = new StreamWriter("../../Files/Product.txt", false))
             {
                 //флаг проверяет если удалился вернет true если нет false
                 bool flag = SpisokProduct.Remove(id);
