@@ -22,14 +22,15 @@ namespace TaxiManager.DAL
                 {
                     string line = files.ReadLine();
                     string[] data = line.Split(' ');
-
-                    FakeDaoDriver.Add(index++, new Driver
-                    { 
-                        FistName = data[0],
+                    int.TryParse(data[0], out int id);
+                    FakeDaoDriver.Add(index, new Driver
+                    {
+                        Id = id,
+                        FistName = data[2],
                         LastName = data[1],
-                        MiddleName = data[2],
+                        MiddleName = data[3],
                     });
-
+                    index++;
                 }
 
                 if (FakeDaoDriver.Any())
@@ -66,13 +67,21 @@ namespace TaxiManager.DAL
             {
                 var lastIndex = FakeDaoDriver.LastOrDefault().Key;
                 if (lastIndex == 0)
+                {
+                    Driver.Id = lastIndex;
                     FakeDaoDriver.Add(lastIndex++, Driver);
-                else
+                }
+
+                else 
+                {
                     FakeDaoDriver.Add(++lastIndex, Driver);
+                    Driver.Id = lastIndex;
+                }
+                    
 
                 foreach (var driver in FakeDaoDriver.Values)
                 {
-                    files.WriteLine($"{driver.FistName} {driver.MiddleName} {driver.LastName}");
+                    files.WriteLine($"{driver.Id} {driver.LastName} {driver.FistName} {driver.MiddleName}");
                 }
                 
 
@@ -93,7 +102,7 @@ namespace TaxiManager.DAL
 
                 foreach (var Driver in FakeDaoDriver.Values)
                 {
-                    files.WriteLine($"{Driver.FistName} {Driver.MiddleName} {Driver.LastName}");
+                    files.WriteLine($"{Driver.Id} {Driver.FistName} {Driver.MiddleName} {Driver.LastName}");
                 }
             }
         }
@@ -119,7 +128,7 @@ namespace TaxiManager.DAL
 
             foreach (var item in FakeDaoDriver)
             {
-                Console.WriteLine($"{item.Key}: {item.Value.LastName} {item.Value.FistName} {item.Value.MiddleName}");
+                Console.WriteLine($"{item.Value.Id}: {item.Value.LastName} {item.Value.FistName} {item.Value.MiddleName}");
             }
         }
     }

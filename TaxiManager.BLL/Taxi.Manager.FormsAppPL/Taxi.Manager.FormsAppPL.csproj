@@ -79,5 +79,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TaxiManager.BLL\TaxiManager.BLL.csproj">
+      <Project>{65237663-d12f-4a1f-84c7-35b4592b85fb}</Project>
+      <Name>TaxiManager.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaxiManager.Entities\TaxiManager.Entities.csproj">
+      <Project>{2a438c12-4f4d-4641-a0d5-a48d4fef649c}</Project>
+      <Name>TaxiManager.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

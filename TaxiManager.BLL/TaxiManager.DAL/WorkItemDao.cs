@@ -25,15 +25,14 @@ namespace TaxiManager.DAL
 
                     var driver = new Driver
                     {
-                        FistName = data[1],
-                        MiddleName = data[2],
-                        LastName = data[3]
+                        FistName = data[2],
+                        MiddleName = data[3],
+                        LastName = data[4]
                     };
 
                     var car = new Car
                     {
-                        Model = data[4],
-                        Mark = data[5],
+                        Mark = data[4],
                     };
 
 
@@ -80,16 +79,20 @@ namespace TaxiManager.DAL
                 var lastIndex = FakeDaoWorkItem.LastOrDefault().Key;
                 if (lastIndex == 0) 
                 {
-                    FakeDaoWorkItem.Add(lastIndex, workItem);
-                    lastIndex++;
+                    workItem.Id = lastIndex;
+                    FakeDaoWorkItem.Add(lastIndex++, workItem);
                 }
                 else
+                {
                     FakeDaoWorkItem.Add(++lastIndex, workItem);
+                    workItem.Id = lastIndex;
+                }
+                   
                 foreach (var item in FakeDaoWorkItem.Values)
                 {
-                    files.WriteLine($"{item.WorkDate.Date:MM/dd/yyyy} " +
+                    files.WriteLine($"{item.Id} {item.WorkDate.Date:MM/dd/yyyy} " +
                     $"{item.Driver.FistName} {item.Driver.MiddleName} {item.Driver.LastName} " +
-                    $"{item.Car.Mark} {item.Car.Model}");
+                    $"{item.Car.Mark}");
                 }
                 
             }
@@ -109,9 +112,9 @@ namespace TaxiManager.DAL
 
                 foreach (var WorkItem in FakeDaoWorkItem.Values)
                 {
-                    files.WriteLine($"{WorkItem.WorkDate.Date:MM/dd/yyyy} " +
+                    files.WriteLine($"{WorkItem.Id} {WorkItem.WorkDate.Date:MM/dd/yyyy} " +
                    $"{WorkItem.Driver.LastName} {WorkItem.Driver.FistName} {WorkItem.Driver.MiddleName} " +
-                   $"{WorkItem.Car.Mark} {WorkItem.Car.Model}");
+                   $"{WorkItem.Car.Mark}");
                 }
             }
         }
@@ -128,7 +131,7 @@ namespace TaxiManager.DAL
             {
                 Console.WriteLine($"{WorkItem.Key}: {WorkItem.Value.WorkDate.Date:MM/dd/yyyy} " +
                 $"{WorkItem.Value.Driver.LastName} {WorkItem.Value.Driver.FistName} {WorkItem.Value.Driver.MiddleName} " +
-                $"{WorkItem.Value.Car.Mark} {WorkItem.Value.Car.Model}");
+                $"{WorkItem.Value.Car.Mark}");
             }
 
         }

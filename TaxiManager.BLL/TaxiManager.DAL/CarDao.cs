@@ -23,13 +23,13 @@ namespace TaxiManager.DAL
                     string line = files.ReadLine();
                     string[] data = line.Split(' ');
 
-                   
-                    FakeDaoCar.Add(index++, new Car
+                    int.TryParse(data[0], out int id);
+                    FakeDaoCar.Add(index, new Car
                     {
-                        Mark = data[0],
-                        Model = data[1],
-                    }); 
-          
+                        Id = id,
+                        Mark = data[1],
+                    });
+                    index++;
                 }
 
                 if (FakeDaoCar.Any()) 
@@ -66,10 +66,25 @@ namespace TaxiManager.DAL
             {
                 var lastIndex = FakeDaoCar.LastOrDefault().Key;
                 if (lastIndex == 0)
-                    FakeDaoCar.Add(lastIndex++, car);
+                {
+                    if (FakeDaoCar.Count == 1)
+                    {
+                        car.Id = lastIndex;
+                        FakeDaoCar.Add(++lastIndex, car);
+                    }
+                    else 
+                    {
+                        car.Id = lastIndex;
+                        FakeDaoCar.Add(lastIndex++, car);
+                    }
+                   
+                }
                 else
-                    FakeDaoCar.Add(++lastIndex, car); 
-                files.WriteLine($"{car.Mark} {car.Model}");
+                {
+                    FakeDaoCar.Add(++lastIndex, car);
+                    car.Id = lastIndex;
+                }
+                files.WriteLine($"{car.Id} {car.Mark}");
             }   
         }
 
@@ -87,7 +102,7 @@ namespace TaxiManager.DAL
 
                 foreach (var car in FakeDaoCar.Values)
                 {
-                    files.WriteLine($"{car.Mark} {car.Model}");
+                    files.WriteLine($"{car.Id} {car.Mark}");
                 }
             }
         }
@@ -102,7 +117,7 @@ namespace TaxiManager.DAL
 
             foreach (var item in FakeDaoCar)
             {
-                Console.WriteLine($"{item.Key}: {item.Value.Mark} {item.Value.Model}");
+                Console.WriteLine($"{item.Key}: {item.Value.Mark}");
             }
         }
 
