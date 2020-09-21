@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Praktika24_1.Logic
 {
@@ -14,13 +15,13 @@ namespace Praktika24_1.Logic
         public List<Product> GetAll()
         {
             int count = 0;
-            using (StreamReader files = new StreamReader("../../Files/Product.txt"))
+            using (StreamReader files = new StreamReader("../../Files/Product.txt", Encoding.GetEncoding(1251)))
             {
                 List<Product> Product = new List<Product>();
                 SpisokProduct.Clear();
                 while (!files.EndOfStream)
                 {
-                    
+
                     //Список который будем возвращать
 
                     string line = files.ReadLine();
@@ -30,7 +31,7 @@ namespace Praktika24_1.Logic
                     int.TryParse(info[2], out int price);
                     int.TryParse(info[0], out int id);
                     SpisokProduct.Add(count++, new Product
-                    { 
+                    {
                         Id = id,
                         Title = info[1],
                         Price = price,
@@ -55,7 +56,7 @@ namespace Praktika24_1.Logic
             if (SpisokProduct == null)
                 return;
 
-            using (StreamWriter files = new StreamWriter("../../Files/Product.txt", true))
+            using (StreamWriter files = new StreamWriter("../../Files/Product.txt", true, Encoding.GetEncoding(1251)))
             {
                 int lastIndex = 0;
                 //Берем максимальный индекс в нашем списке акций
@@ -83,7 +84,7 @@ namespace Praktika24_1.Logic
             if (SpisokProduct == null) // Проверяем пустой ли список или равный нулл
                 return;
 
-            using (StreamWriter files = new StreamWriter("../../Files/Product.txt", false))
+            using (StreamWriter files = new StreamWriter("../../Files/Product.txt", false, Encoding.GetEncoding(1251)))
             {
                 //флаг проверяет если удалился вернет true если нет false
                 bool flag = SpisokProduct.Remove(id);

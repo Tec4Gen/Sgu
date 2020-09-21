@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Praktika24_1.Logic;
+﻿using Praktika24_1.Logic;
 using Praktika24_1.Type;
+using System;
+using System.Collections.Generic;
 
 namespace Praktika24_1
 {
@@ -19,16 +16,18 @@ namespace Praktika24_1
                 StockLogic StockLogic = new StockLogic();
 
                 Console.WriteLine("Выберите действие");
-
+                Console.WriteLine(new String('*', 20));
                 Console.WriteLine("1)Посмотреть товары");
                 Console.WriteLine("2)Добавить товар");
                 Console.WriteLine("3)Удалить товар");
-
+                Console.WriteLine(new String('*', 20));
                 Console.WriteLine("4)Посмотреть акции");
                 Console.WriteLine("5)Добавить акцию");
                 Console.WriteLine("6)Удалить акцию");
+                Console.WriteLine(new String('*', 20));
+                Console.WriteLine("9)Выйти из программы");
 
-
+                string message = "Возврат в меню";
 
                 if (int.TryParse(Console.ReadLine(), out int action))
                 {
@@ -36,6 +35,11 @@ namespace Praktika24_1
                     {
                         case 1:
                             List<Product> all = ProductLogic.GetAll();
+                            if (all.Count == 0)
+                            {
+                                Console.WriteLine("Товаров нет");
+                            }
+                        
                             foreach (var item in all)
                             {
                                 Console.WriteLine($"{item.Id} {item.Title} {item.Price}");
@@ -76,6 +80,11 @@ namespace Praktika24_1
 
                         case 4:
                             List<Stock> allAcii = StockLogic.GetAll();
+                            if (allAcii.Count == 0)
+                            {
+                                Console.WriteLine("Акций нет");
+                            }
+                            
                             foreach (var item in allAcii)
                             {
                                 Console.WriteLine($"{item.Id} {item.Title} {item.Description}");
@@ -109,27 +118,21 @@ namespace Praktika24_1
                                 Console.WriteLine("Не верное id");
                             }
                             break;
-                        default:
-                            break;
-                    }
-
-                    Console.WriteLine("Выйти? Да/Нет");
-                    string stop = Console.ReadLine();
-
-                    switch (stop)
-                    {
-                        case "Да":
+                        case 9:
                             flag = false;
-                            break;
-                        case "Нет":
+                            message = "Завершение работы";
                             break;
                         default:
-                            Console.WriteLine("Такой команды нет");
-                            goto case "Да";
+                            break;
                     }
+                    Console.WriteLine(new String('&',20));
+                    Console.WriteLine(message);
+                    Console.WriteLine(new String('&', 20));
+
                 }
 
             }
+            Console.Read();
         }
             
     }

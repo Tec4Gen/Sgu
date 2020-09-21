@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Praktika24_1.Logic
 {
@@ -13,8 +14,9 @@ namespace Praktika24_1.Logic
         //Получить в виде листа  List<Stock> все акции
         public List<Stock> GetAll()
         {
+            
             int count = 0;
-            using (StreamReader files = new StreamReader("../../Files/Stock.txt"))
+            using (StreamReader files = new StreamReader("../../Files/Stock.txt", Encoding.GetEncoding(1251)))
             {
                 List<Stock> Stock = new List<Stock>();
                 SpisokStock.Clear();
@@ -53,7 +55,7 @@ namespace Praktika24_1.Logic
             if (SpisokStock == null)
                 return;
             int lastIndex = 0;
-            using (StreamWriter files = new StreamWriter("../../Files/Stock.txt", true))
+            using (StreamWriter files = new StreamWriter("../../Files/Stock.txt", true, Encoding.GetEncoding(1251)))
             {
                 //Берем максимальный индекс в нашем списке акций
                 
@@ -81,7 +83,7 @@ namespace Praktika24_1.Logic
             if (SpisokStock == null)// Проверяем пустой ли список или равный нулл
                 return;
 
-            using (StreamWriter files = new StreamWriter("../../Files/Stock.txt", false))
+            using (StreamWriter files = new StreamWriter("../../Files/Stock.txt", false, Encoding.GetEncoding(1251)))
             {
                 //флаг проверяет если удалился вернет true если нет false
                 bool flag = SpisokStock.Remove(id);
