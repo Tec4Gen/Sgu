@@ -99,6 +99,14 @@ namespace Praktika24_1.Logic
                 }
             }
         }
+
+        public List<Product> FindByTitile(string title) 
+        {
+            GetAll();//получаем все - для актцальности данных что бы ничего не потерять
+            if (SpisokProduct == null || SpisokProduct.Count == 0) // Проверяем пустой ли список или равный нулл
+                return null;
+            return SpisokProduct.Values.Where(x => x.Title == title).Select(x=>x).ToList();
+        }
     }
 }
 

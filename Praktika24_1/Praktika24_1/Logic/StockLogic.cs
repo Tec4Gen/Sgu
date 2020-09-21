@@ -1,4 +1,5 @@
 ﻿using Praktika24_1.Type;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,12 +30,13 @@ namespace Praktika24_1.Logic
                     string[] info = line.Split(' ');
                     // тут просто собираем из каждой линии в файле объект и добавляем его в наш общий словарик 
                     int.TryParse(info[0], out int id);
+                    DateTime date = DateTime.ParseExact(info[2], "MM/dd/yyyy", null); ;
                     SpisokStock.Add(count++, new Stock
                     {
                         Id = id,
                         Title = info[1],
-                        Description = info[2],
-                    });
+                        Date = date
+                    });;
                 }
 
                 foreach (var item in SpisokStock.Values)
@@ -72,7 +74,7 @@ namespace Praktika24_1.Logic
                 }
 
                 //теперь в конец файла кладем нашу запись
-                files.WriteLine($"{Stock.Id} {Stock.Title} {Stock.Description}");
+                files.WriteLine($"{Stock.Id} {Stock.Title} {Stock.Date.Date:MM/dd/yyyy}");
             }
         }
 
@@ -93,9 +95,17 @@ namespace Praktika24_1.Logic
                 //Производим польную перезапись файла без уже удаленного элемента, за это отвечает флаг false в StreamWriter
                 foreach (var Stock in SpisokStock.Values)
                 {
-                    files.WriteLine($"{Stock.Id} {Stock.Title} {Stock.Description}");
+                    files.WriteLine($"{Stock.Id} {Stock.Title} {Stock.Date:MM/dd/yyyy}");
                 }
             }
+        }
+
+        public List<Stock> FindByDate(DateTime date)
+        {
+            GetAll();//получаем все - для актцальности данных что бы ничего не потерять
+            if (SpisokStock == null || SpisokStock.Count == 0) // Проверяем пустой ли список или равный нулл
+                return null;
+            return SpisokStock.Values.Where(x => x.Date == date).Select(x => x).ToList();
         }
     }
 }

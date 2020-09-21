@@ -14,5 +14,7 @@ namespace Praktika24_1.Type
         public string Title { get; set; }
         //Описание акции
         public string Description { get; set; }
+        //Дата проведения
+        public DateTime Date{ get; set; }
     }
 }
